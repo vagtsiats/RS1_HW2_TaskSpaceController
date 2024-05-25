@@ -44,12 +44,11 @@ def fk_all(model, data, q, v=None):
     pin.updateFramePlacements(model, data)  # Update frames
 
 
-# translation Position decoupling
 def interpolate_translation(start, goal, s):
     return start + s * (goal - start)
 
 
-def damped_pseudoinverse(jac, l=0.0):
+def damped_pseudoinverse(jac, l=0.001):
     m, n = jac.shape
     if n >= m:
         return jac.T @ np.linalg.inv(jac @ jac.T + l * l * np.eye(m))
